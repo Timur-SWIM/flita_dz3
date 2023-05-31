@@ -30,9 +30,10 @@ int isConnected(graph *g){
 
 void graphFromFile(FILE *inputf, graph *g){
     char line[128];
-    int row = 0, col = 0;
+    int row = 0;
 
     while (fgets(line, sizeof(line), inputf)){
+        int col = 0;
         char *token = strtok(line, " ");
         while (token){
             int value = atoi(token);
@@ -73,12 +74,11 @@ int main(int argc, char *argv[]){
 
     if (!isConnected(g)){
         puts("Graph is not connected");
-        return 1;
+        //return 1;
     }
     FILE *outputf = fopen("graph.dot", "w");
     if (outputf == NULL){
         puts("ERROR: Unable to open file");
-        return 1;
     }
     writeDOT(outputf, g);
     fclose(outputf);
